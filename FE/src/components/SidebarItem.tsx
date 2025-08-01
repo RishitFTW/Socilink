@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { type ReactElement } from 'react'
 import ShareIcon from '../icons/ShareIcon'
 
-function SidebarItem() {
+interface SideItemProps{
+    title:String,
+    startIcon: ReactElement
+}
+
+function SidebarItem({title,startIcon}:SideItemProps) {
   return (
-    <div className='bg-red-200 px-2 py-1 mt-12'>
-        <div className='flex items-center bg-amber-200 rounded-lg p-2'>
+    <div className=' px-2 py-0.5 '>
+        <div className='flex items-center p-3 pl-3 rounded-lg text-sm font-medium transition-all duration-200 group bg-indigo-50 text-indigo-700 border border-indigo-200'>
             <div>
-              <ShareIcon/>
+              {startIcon}
             </div>
-            <div>
-              All notes
+            <div className='text-indigo-700 font-medium text-sm pl-4'>
+              {title}
             </div>
         </div>
     </div>
