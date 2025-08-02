@@ -7,8 +7,8 @@ interface ButtonProps{
 }
 
 const variantClasses={
-    "primary":"bg-[#E0E7FF] rounded-md px-4 py-2",
-    "secondary":"bg-[#7926D1] rounded-md px-4 py-2 text-white font-medium"
+    "primary":"bg-indigo-100 rounded-md px-4 py-2 cursor-pointer text-indigo-700 font-semibold border border-indigo-200",
+    "secondary":"bg-indigo-600 rounded-md px-4 py-2 text-white font-medium cursor-pointer border border-indigo-200"
 }
 
 function Button({variant,text,startIcon}:ButtonProps) {
@@ -17,7 +17,11 @@ function Button({variant,text,startIcon}:ButtonProps) {
         <div>
             {startIcon}
         </div>
-        {text}</button>
+        <div>
+            
+        </div>
+        {text}
+        </button>
   )
 }
 
