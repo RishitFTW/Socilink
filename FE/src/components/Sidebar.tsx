@@ -7,7 +7,7 @@ import Dox from '../icons/Dox'
 import AllNotesIcon from '../icons/AllNotesIcon'
 function Sidebar() {
   return (
-    <div className='w-[255px] border-r border-gray-200 h-screen'>
+    <div className='fixed top-0 left-0 w-[255px] h-screen border-r border-gray-200 bg-white z-50' >
         <div className='flex justify-center items-center gap-x-3 p-5 pb-5 pl-2 border-gray-200'>
           <div>
             <AppIcon/>

@@ -13,14 +13,14 @@ interface CardProps{
 
 function Card({title,type,link}:CardProps) {
   return (
-    <div className="w-[320px] h-[320px] bg-white rounded-xl shadow-md hover:border-gray-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden
+    <div className="w-[310px] h-[320px] bg-white rounded-xl shadow-md hover:border-gray-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden
 ">
         <div className='flex items-center ml-4 pt-4'>
             <div className='pl-3 flex justify-center items-center'>
                 {
                   (type=="youtube")?<Yt/>:<X/>
                 }
-                <div className='pl-2 font-medium  w-[180px]'>
+                <div className='pl-6 font-medium  w-[180px]'>
                   {title}
                 </div>
             </div>
@@ -36,9 +36,9 @@ function Card({title,type,link}:CardProps) {
         <div className='mt-3 p-2'>
 
              {
-             (type=="youtube") ?  <iframe className='w-full rounded-md' src="https://www.youtube.com/embed/iELDSVnj2hE?si=a2B-8NhLKj02dF-6" title="YouTube video player" 
+             (type=="youtube") ? <div className=' mt-8 p-1 bg-gray-400 rounded-md border border-gray-200 '><iframe className='w-full rounded-md' src="https://www.youtube.com/embed/iELDSVnj2hE?si=a2B-8NhLKj02dF-6" title="YouTube video player" 
             frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-             referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> 
+             referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> </div> 
              :
              <blockquote className="twitter-tweet">
               <a href="https://twitter.com/username/status/807811447862468608"></a> 
