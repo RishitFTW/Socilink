@@ -56,36 +56,36 @@ function Card({title,type,link}:CardProps) {
 
              {
              type=="youtube" ? (
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-               <YouTubeEmbed url="https://www.youtube.com/watch?v=HpVOs5imUN0" width={325} height={220} />
+              <div className='flex  justify-center'>
+               <YouTubeEmbed url="https://www.youtube.com/watch?v=HpVOs5imUN0" width={325} height={260} />
             </div>
              ): type=="x" ? (
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <  XEmbed url="https://twitter.com/PixelAndBracket/status/1356633038717923333" width={325} />
+              <div className='flex  justify-center'>
+              <  XEmbed url="https://twitter.com/PixelAndBracket/status/1356633038717923333" width={325} height={260} />
             </div>
              ): type=="instagram" ? (
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-               <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328} />
+              <div className='flex  justify-center'>
+               <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328} height={260} />
             </div>
              ): type=="fb" ?(
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <FacebookEmbed url="https://www.facebook.com/andrewismusic/posts/451971596293956" width={550} />
+              <div className='flex  justify-center'>
+                <FacebookEmbed url="https://www.facebook.com/andrewismusic/posts/451971596293956" width={550} height={260} />
               </div>
              ): type=="linkedin" ?(
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className='flex  justify-center'>
                 <LinkedInEmbed 
                   url="https://www.linkedin.com/embed/feed/update/urn:li:share:6898694772484112384"
                   postUrl="https://www.linkedin.com/posts/peterdiamandis_5-discoveries-the-james-webb-telescope-will-activity-6898694773406875648-z-D7"
                   width={325}
-                  height={570} 
+                  height={260}  
                 />
               </div>              
              ) :(
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className='flex  justify-center'>
                 <PinterestEmbed 
-                  url="https://www.pinterest.co.uk/pin/875105771321194304/"
+                  url="https://in.pinterest.com/pin/321655598412607844/"
                   width={345}
-                  height={467}
+                  height={260} 
                 />
               </div>             
              )

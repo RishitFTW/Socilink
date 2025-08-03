@@ -3,18 +3,23 @@ import AppIcon from './AppIcon'
 import SidebarItem from './SidebarItem'
 import NotesIcon from './NotesIcon'
 import CamerIcon from '../icons/CamerIcon'
-import Dox from '../icons/Dox'
 import AllNotesIcon from '../icons/AllNotesIcon'
 import { useState } from 'react'
+import Bell from '../icons/Bell'
+import Camera from '../icons/Camera'
+import Link from '../icons/Link'
+
 function Sidebar() {
+  
   const [selected, setSelected]= useState("All Notes");
 
  const menuItems=[
    {title:"All Notes",icon:<AllNotesIcon/>},
    {title:"Tweets", icon:<NotesIcon/>},
    {title:"Videos", icon:<CamerIcon/>},
-   {title:"Documents", icon:<Dox/> },
-   {title:"Links", icon:<Dox/>}
+   {title:"Instagram", icon:<Camera/> },
+   {title:"Linkedin", icon:<Link/>},
+   {title:"Facebook", icon:<Bell/>}
  ]
 
 
