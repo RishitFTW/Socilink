@@ -26,20 +26,16 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-            <div className='h-[697px] w-[1280px] bg-slate-100 flex flex-wrap gap-x-2 gap-y-2 p-2'>
+            <div className='min-h-[697px] w-[1280px] bg-slate-100 flex flex-wrap gap-x-6 gap-y-6 p-6'>
 
-                    <Card title="Twitter Content" type="X"/>
+
+
+                    <Card title="Twitter Content" type="x"/>
                     <Card title="youtube Content" type="youtube"/>
-                    <Card title="Twitter Content" type="X"/>
-                    <Card title="youtube Content" type="youtube"/>
-                    <Card title="Twitter Content" type="X"/>
-                    <Card title="youtube Content" type="youtube"/>
-                    <Card title="Twitter Content" type="X"/>
-                    <Card title="youtube Content" type="youtube"/>
-                    <Card title="Twitter Content" type="X"/>
-                    <Card title="youtube Content" type="youtube"/>
-                    <Card title="Twitter Content" type="X"/>
-                    <Card title="youtube Content" type="youtube"/>
+                    <Card title="Instagram Content" type="instagram"/>
+                    <Card title="facebook Content" type="fb"/>
+                    <Card title="Pinterest Content" type="pinterest"/>
+                    <Card title="Linkedin Content" type="linkedin"/>
 
             </div>
         </div>
