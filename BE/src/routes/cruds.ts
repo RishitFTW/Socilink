@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { verifyJWT } from "../middleware/middleware";
-const AuthRouter= Router();
+import { createContent, createLink, fetchContent, getSharedContent, removeContent } from "../controllers/crudscontroller";
+const router= Router();
 
-AuthRouter.post('/content',verifyJWT)
-AuthRouter.get('/content',verifyJWT)
-AuthRouter.delete('/content/:id',verifyJWT)
-AuthRouter.post('brain/share',verifyJWT)
-AuthRouter.get('/brain/share/:shareLink',verifyJWT)
+router.post('/content',verifyJWT, createContent)
+router.get('/content',verifyJWT,fetchContent)
+router.delete('/content/:contentID',verifyJWT,removeContent)
+router.post('/brain/share',verifyJWT,createLink)
+router.get('/brain/share/:shareLink',getSharedContent)
 
-export default AuthRouter;
+export default router;

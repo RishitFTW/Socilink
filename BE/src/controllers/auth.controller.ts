@@ -7,7 +7,6 @@ interface UserInput{
     password:string
 }
 export async function signup(req:Request,res:Response){
-    
     try {
         const user:UserInput = req.body;
 
@@ -33,6 +32,7 @@ export async function signup(req:Request,res:Response){
 
 
 export async function signin(req:Request, res:Response){
+
     try {
         const { username, password }: UserInput = req.body;
 
