@@ -1,8 +1,9 @@
 import React, { type ReactElement } from 'react'
 
 interface ButtonProps{
+    onClick?:()=>void
     variant: "primary" | "secondary",
-    startIcon:ReactElement,
+    startIcon?:ReactElement,
     text:String
 }
 
@@ -11,9 +12,9 @@ const variantClasses={
     "secondary":"bg-indigo-600 rounded-md px-4 py-2 text-white font-medium cursor-pointer border border-indigo-200 hover:bg-indigo-700"
 }
 
-function Button({variant,text,startIcon}:ButtonProps) {
+function Button({variant,text,startIcon,onClick}:ButtonProps) {
   return (
-    <button className={variantClasses[variant]+` flex items-center gap-x-2 text-sm`}>
+    <button onClick={onClick} className={variantClasses[variant]+` flex items-center gap-x-2 text-sm`}>
         <div>
             {startIcon}
         </div>
