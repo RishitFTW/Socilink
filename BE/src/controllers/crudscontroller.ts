@@ -50,7 +50,6 @@ export async function fetchContent(req:Request,res:Response){
 export async function removeContent(req:Request, res:Response){
   try {
     const { contentID } = req.params;
-
     if (!contentID) {
       return res.status(400).json({ message: "Content ID is required" });
     }

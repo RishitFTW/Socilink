@@ -23,6 +23,7 @@ function Dashboard() {
         navigate('/')
         return;
     }
+    console.log("hl")
     const fetchData=async()=>{
         const BookmarksData= await axios.get('http://localhost:3000/api/v1/check/content',
             {
@@ -67,7 +68,7 @@ function Dashboard() {
                     <Card title="Pinterest Content" type="pinterest"/>
                     <Card title="Linkedin Content" type="linkedin"/>                     */}
                     {bookmarks.map((item:any)=>(
-                        <Card key={item.id} title={item.title} type={item.type} link={item.link}/>
+                        <Card key={item._id} title={item.title} type={item.type} link={item.link} _id={item._id} onSuccess={()=>{setRefreshTrigger(prev=>prev+1)}}/>
                     ))}
             </div>
         </div>

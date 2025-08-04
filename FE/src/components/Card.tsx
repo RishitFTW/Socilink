@@ -13,12 +13,14 @@ import { LinkedInEmbed } from 'react-social-media-embed';
 import { PinterestEmbed } from 'react-social-media-embed';
 import Fb from '../icons/Fb';
 import Pinterest from '../icons/Pinterest';
+import axios from 'axios';
 
 interface CardProps{
     title:string,
-    type:"youtube"| "x" | "linkedin" | "instagram" | "fb" | "pinterest",
+    type:"youtube"| "x" | "linkedin" | "instagram" | "facebook" | "pinterest",
     link:string
-    
+    onSuccess:()=>void
+    _id:string
 }
 
 const typeVariant={
@@ -26,11 +28,29 @@ const typeVariant={
   "x":<X/>,
   "linkedin":<Linkedin/>,
   "instagram":<Instagram/>,
-  "fb":<Fb/>,
+  "facebook":<Fb/>,
   "pinterest":<Pinterest/>
 }
 
-function Card({title,type,link}:CardProps) {
+function Card({title,type,link,onSuccess,_id}:CardProps) {
+
+const removeContent=async()=>{
+   try {
+    const token= localStorage.getItem('authToken')
+      const res= await axios.delete(`http://localhost:3000/api/v1/check/content/${_id}`,
+        {
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        }
+      )
+      onSuccess();
+   } catch (err) {
+       console.error("Submission failed", err)    
+   }
+}
+
+
   return (
     <div className="w-[290px] h-[320px] bg-white rounded-xl shadow-md hover:border-gray-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden
 ">
@@ -47,7 +67,7 @@ function Card({title,type,link}:CardProps) {
                 <div className='cursor-pointer'>
                    <ShareIcon/>
                 </div>
-                <div className='cursor-pointer hover:bg-amber-100'>
+                <div onClick={removeContent} className='cursor-pointer hover:bg-amber-100'>
                    <Bin/>  
                 </div>             
             </div>          
@@ -67,7 +87,7 @@ function Card({title,type,link}:CardProps) {
               <div className='flex  justify-center'>
                <InstagramEmbed url={link}  width={328} height={260} />
             </div>
-             ): type=="fb" ?(
+             ): type=="facebook" ?(
               <div className='flex  justify-center'>
                 <FacebookEmbed url={link} width={550} height={260} />
               </div>

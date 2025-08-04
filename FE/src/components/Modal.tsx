@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useState } from "react"
-import type { ReactFormState } from "react-dom/client"
 
 interface ModalProps{
   onClose:()=>void,
