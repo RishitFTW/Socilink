@@ -7,13 +7,17 @@ import user from "../models/user";
 
 export async function createContent(req:Request,res:Response){
   try {
-    const { type, link, title, tags } = req.body;
-
-    if (!type || !link || !title || !Array.isArray(tags)) {
+    console.log("s1")
+    const { type, link, title } = req.body;
+    console.log("s2")
+    console.log(`type: ${type}, link: ${link}, title: ${title}`)
+    if (!type || !link || !title) {
       return res.status(400).json({ message: 'Invalid content data' });
     }
+    console.log("s3")
     //@ts-ignore
-    const content = new Content({ type, link, userId: req.userId, title, tags });
+    const content = new Content({ type, link, userId: req.userId, title });
+    console.log("s4")
 
     await content.save();
 

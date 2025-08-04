@@ -11,13 +11,13 @@ import { FacebookEmbed } from 'react-social-media-embed';
 import { InstagramEmbed } from 'react-social-media-embed';
 import { LinkedInEmbed } from 'react-social-media-embed';
 import { PinterestEmbed } from 'react-social-media-embed';
-import Fb from '../icons/fb';
+import Fb from '../icons/Fb';
 import Pinterest from '../icons/Pinterest';
 
 interface CardProps{
-    title:String,
+    title:string,
     type:"youtube"| "x" | "linkedin" | "instagram" | "fb" | "pinterest",
-    link?:String
+    link:string
     
 }
 
@@ -57,25 +57,25 @@ function Card({title,type,link}:CardProps) {
              {
              type=="youtube" ? (
               <div className='flex  justify-center'>
-               <YouTubeEmbed url="https://www.youtube.com/watch?v=HpVOs5imUN0" width={325} height={260} />
+               <YouTubeEmbed url={link} width={325} height={260} />
             </div>
              ): type=="x" ? (
               <div className='flex  justify-center'>
-              <  XEmbed url="https://twitter.com/PixelAndBracket/status/1356633038717923333" width={325} height={260} />
+              <  XEmbed url={link} width={325} height={260} />
             </div>
              ): type=="instagram" ? (
               <div className='flex  justify-center'>
-               <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328} height={260} />
+               <InstagramEmbed url={link}  width={328} height={260} />
             </div>
              ): type=="fb" ?(
               <div className='flex  justify-center'>
-                <FacebookEmbed url="https://www.facebook.com/andrewismusic/posts/451971596293956" width={550} height={260} />
+                <FacebookEmbed url={link} width={550} height={260} />
               </div>
              ): type=="linkedin" ?(
               <div className='flex  justify-center'>
                 <LinkedInEmbed 
-                  url="https://www.linkedin.com/embed/feed/update/urn:li:share:6898694772484112384"
-                  postUrl="https://www.linkedin.com/posts/peterdiamandis_5-discoveries-the-james-webb-telescope-will-activity-6898694773406875648-z-D7"
+                  url={link} 
+                  postUrl={link}
                   width={325}
                   height={260}  
                 />
@@ -83,7 +83,7 @@ function Card({title,type,link}:CardProps) {
              ) :(
               <div className='flex  justify-center'>
                 <PinterestEmbed 
-                  url="https://in.pinterest.com/pin/321655598412607844/"
+                  url={link}
                   width={345}
                   height={260} 
                 />

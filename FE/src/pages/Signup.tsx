@@ -1,5 +1,7 @@
 // LoginPage.tsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Signup() {
 
@@ -7,27 +9,26 @@ function Signup() {
         username:"",
         password:""
     });
-    
+    const navigate= useNavigate();
     const handleSubmit=async(e:React.FormEvent)=>{
         e.preventDefault();
         try {
-            const response= await fetch('http://localhost:3000/api/v1/auth/signup',{
-                method:'POST',
-                headers:{
-                    'Content-Type': 'application/json',
-                },       
-                body: JSON.stringify(formData)         
-            })
-            if(!response.ok){
-                alert('Error signup');
-                return;
+            const response = await axios.post(
+            'http://localhost:3000/api/v1/auth/signup',
+            formData,
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                }
             }
-            const responseData= await response.json();
+            );
+            const responseData = response.data;
             localStorage.setItem('authToken', responseData);
-            //navigate to dashboard
+
+            navigate('/');
 
         } catch (error) {
-            
+           alert('Failed to sign up. Please try again later.'); 
         }
     }
 
@@ -75,7 +76,7 @@ function Signup() {
             Submit
           </button>
           <div className="text-sm pl-26 text-gray-500">
-             Have an account? Login
+             Have an account? <span onClick={()=>{navigate('/')}} className="text-blue-500 underline hover:text-blue-700 cursor-pointer">Login</span>
           </div>          
         </form>
       </div>

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -9,27 +10,40 @@ function Login() {
     password:""
    })
    
+  const [isCheckingAuth,setAuth]= useState(false);
+
+  useEffect(()=>{
+    setAuth(true);
+    const token=localStorage.getItem('authToken');
+    if(token){
+       navigate('/dashboard')
+       return;
+    }
+    setAuth(false);
+
+  },[])
+
    const handleSubmit=async(e:React.FormEvent)=>{
     e.preventDefault();
     try {
-        const response= await fetch('http://localhost:3000/api/v1/auth/login',{
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json',
-            },
-            body:JSON.stringify(formData)
-        })
-        if(!response.ok){
-            alert('Error loggin in')
-            return;
-        }
-        const responseData= await response.json();
-        localStorage.setItem('authToken',responseData.token);
+        const response = await axios.post('http://localhost:3000/api/v1/auth/signin',
+            formData,
+            {
+                headers:{
+                  'Content-Type': 'application/json',
+                }
+            }
+        )
+        const responseData= response.data;
+        console.log(responseData.Token)
+        localStorage.setItem('authToken',responseData.Token);
 
-        // navigate to /dashboard
-    } catch (error) {
-        
-    }
+        navigate('/dashboard');
+
+    } catch (error: any) {
+  console.error("Login error:", error);
+  alert(error?.response?.data?.message || "Error logging in");
+}
    }
 
   return (
@@ -74,7 +88,7 @@ function Login() {
             Submit
           </button>
           <div className="text-sm pl-22 text-gray-500">
-            Dont have an account? Signup
+            Dont have an account? <span onClick={()=>{navigate('/signup')}} className="text-blue-500 underline hover:text-blue-700 cursor-pointer">Signup</span>
           </div>
         </form>
       </div>

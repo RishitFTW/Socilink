@@ -7,19 +7,35 @@ import Card from '../components/Card'
 import { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Dashboard() {
 
   const [open, setOpen]= useState(false);
+  const [bookmarks, setBookmarks]= useState([]);
+  const [refreshTrigger, setRefreshTrigger]= useState(0);
+
   const navigate= useNavigate();
 
   useEffect(()=>{
     const token=localStorage.getItem('authToken');
     if(!token){
-        navigate('/signup')
+        navigate('/')
+        return;
     }
+    const fetchData=async()=>{
+        const BookmarksData= await axios.get('http://localhost:3000/api/v1/check/content',
+            {
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            }
+        )
+        setBookmarks(BookmarksData.data);
 
-  },[])
+    } 
+    fetchData();
+  },[refreshTrigger])
 
 
   return (
@@ -44,16 +60,19 @@ function Dashboard() {
                 </div>
             </div>
             <div className='min-h-[697px] w-[1280px] bg-slate-100 flex flex-wrap gap-x-6 gap-y-6 p-6'>
-                    <Card title="Twitter Content" type="x"/>
+                    {/* <Card title="Twitter Content" type="x"/>
                     <Card title="youtube Content" type="youtube"/>
                     <Card title="Instagram Content" type="instagram"/>
                     <Card title="facebook Content" type="fb"/>
                     <Card title="Pinterest Content" type="pinterest"/>
-                    <Card title="Linkedin Content" type="linkedin"/>                    
+                    <Card title="Linkedin Content" type="linkedin"/>                     */}
+                    {bookmarks.map((item:any)=>(
+                        <Card key={item.id} title={item.title} type={item.type} link={item.link}/>
+                    ))}
             </div>
         </div>
     </div>
-    {open && <Modal onClose={()=>setOpen(false)}/>}
+    {open && <Modal onSuccess={()=>{ setOpen(false); setRefreshTrigger(prev=>prev+1)}} onClose={()=>setOpen(false)}/>}
 </div>
   )
 }
