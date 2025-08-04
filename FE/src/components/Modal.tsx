@@ -1,5 +1,3 @@
-import React from 'react'
-import Button from './Button'
 
 function Modal({onClose}:{onClose:()=>void}) {
   return (

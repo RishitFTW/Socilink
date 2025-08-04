@@ -3,14 +3,15 @@ import AuthRouter from './routes/auth';
 import router from './routes/cruds';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
+import cors from 'cors';
 dotenv.config();
 
 const app=express();
+app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT;
+const PORT = 3000
 const MONGO_URI = process.env.MONGO_URI as string;
-const SECRET_KEY=process.env.SECRET_KEY
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log("MongoDB connected successfully"))

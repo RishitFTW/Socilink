@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
-const SECRET_KEY= "1234567"
+import dotenv from 'dotenv'
+dotenv.config();
+const SECRET_KEY=process.env.SECRET_KEY as string
 
 interface JWTPayload {
   userId: string;
