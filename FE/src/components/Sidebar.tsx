@@ -34,9 +34,9 @@ function Sidebar({contentData,setBookmarks  }:sideBarProps) {
 
  const menuItems=[
    {title:"All Notes",icon:<AllNotesIcon/>},
-   {title:"x", icon:<NotesIcon/>},
    {title:"youtube", icon:<CamerIcon/>},
    {title:"instagram", icon:<Camera/> },
+   {title:"x", icon:<NotesIcon/>},
    {title:"linkedin", icon:<Link/>},
    {title:"facebook", icon:<Bell/>}
  ]
@@ -69,7 +69,7 @@ function Sidebar({contentData,setBookmarks  }:sideBarProps) {
         <div className='pt-16'>
            {menuItems.map(({title,icon})=>(
             <div key={title}onClick={()=>{setSelected(title)}}>
-               <SidebarItem title={title} selected={selected==title} startIcon={icon}/>
+               <SidebarItem title={title.charAt(0).toUpperCase() + title.slice(1)}  selected={selected==title} startIcon={icon}/>
             </div>
            ))}
           
