@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import DashboardSkeleton from "../components/skeletons/DashboardSkeleton";
 
 function Login() {
    
@@ -16,16 +18,17 @@ function Login() {
     setAuth(true);
     const token=localStorage.getItem('authToken');
     if(token){
+      setAuth(false);
        navigate('/dashboard')
        return;
     }
-    setAuth(false);
-
+      setAuth(false);
   },[])
 
    const handleSubmit=async(e:React.FormEvent)=>{
     e.preventDefault();
     try {
+      setAuth(true);
         const response = await axios.post('http://localhost:3000/api/v1/auth/signin',
             formData,
             {
@@ -37,14 +40,19 @@ function Login() {
         const responseData= response.data;
         console.log(responseData.Token)
         localStorage.setItem('authToken',responseData.Token);
-
+        setAuth(false)
+       toast.success('logged in successfully')
         navigate('/dashboard');
 
     } catch (error: any) {
-  console.error("Login error:", error);
-  alert(error?.response?.data?.message || "Error logging in");
+      console.error("Login error:", error);
+      toast.error('Error logging in. Please try again.');
 }
    }
+
+  if(isCheckingAuth){
+    return <DashboardSkeleton/>
+  }
 
   return (
     <div className="w-full h-screen  bg-gray-300 flex items-center justify-center">

@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import DashboardSkeleton from '../components/skeletons/DashboardSkeleton'
 
 interface contents{
     _id:string,
@@ -22,16 +24,18 @@ function Dashboard() {
   const [allBookmarks, setAllBookmarks]= useState<contents[]>([]);
   const [bookmarks, setBookmarks]= useState<contents[]>([]);
   const [refreshTrigger, setRefreshTrigger]= useState(0);
+  const [isfetchingData, setFetch]= useState(false);
 
   const navigate= useNavigate();
 
   useEffect(()=>{
+    setFetch(true);
     const token=localStorage.getItem('authToken');
     if(!token){
         navigate('/')
         return;
     }
-    console.log("hl")
+    
     const fetchData=async()=>{
         const BookmarksData= await axios.get('http://localhost:3000/api/v1/check/content',
             {
@@ -42,9 +46,10 @@ function Dashboard() {
         )
         setBookmarks(BookmarksData.data);
         setAllBookmarks(BookmarksData.data)
-
+       
     } 
     fetchData();
+    setFetch(false);
   },[refreshTrigger])
 
   const handleShare=async()=>{
@@ -60,12 +65,15 @@ function Dashboard() {
         )
         const hash= await res.data.hash
         await navigator.clipboard.writeText(hash)
-        alert("Link copied to clipboard!");
+        toast.success("Link copied");
     } catch (err) {
         console.error("Submission failed", err)   
+        toast.error('Failed to share bookmarks. Please try again.');
     }
   }
-
+  if(isfetchingData){
+    return <DashboardSkeleton/>
+  }
   return (
     <div>
     <div className='relative flex'>
@@ -95,7 +103,7 @@ function Dashboard() {
                     <Card title="Pinterest Content" type="pinterest"/>
                     <Card title="Linkedin Content" type="linkedin"/>                     */}
                     {bookmarks.map((item:any)=>(
-                        <Card key={item._id} title={item.title} type={item.type} link={item.link} _id={item._id} onSuccess={()=>{setRefreshTrigger(prev=>prev+1)}}/>
+                        <Card key={item._id} title={item.title} type={item.type} link={item.link} _id={item._id} shared={false} onSuccess={()=>{setRefreshTrigger(prev=>prev+1)}}/>
                     ))}
             </div>
         </div>

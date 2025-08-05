@@ -14,13 +14,15 @@ import { PinterestEmbed } from 'react-social-media-embed';
 import Fb from '../icons/Fb';
 import Pinterest from '../icons/Pinterest';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface CardProps{
     title:string,
     type:"youtube"| "x" | "linkedin" | "instagram" | "facebook" | "pinterest",
     link:string
     onSuccess:()=>void
-    _id:string
+    _id:string,
+    shared:Boolean
 }
 
 const typeVariant={
@@ -32,7 +34,7 @@ const typeVariant={
   "pinterest":<Pinterest/>
 }
 
-function Card({title,type,link,onSuccess,_id}:CardProps) {
+function Card({title,type,link,onSuccess,_id,shared}:CardProps) {
 
 const removeContent=async()=>{
    try {
@@ -44,9 +46,11 @@ const removeContent=async()=>{
           }
         }
       )
+      toast.success('Bookmark removed')
       onSuccess();
    } catch (err) {
        console.error("Submission failed", err)    
+       toast.error('Failed to remove bookmark. Please try again.');
    }
 }
 
@@ -63,14 +67,16 @@ const removeContent=async()=>{
                   {title}
                 </div>
             </div>
-            <div className='flex pl-2 gap-x-3'>
+            {!shared && (
+              <div className='flex pl-2 gap-x-3'>
                 <div className='cursor-pointer'>
-                   <ShareIcon/>
+                  <ShareIcon />
                 </div>
                 <div onClick={removeContent} className='cursor-pointer hover:bg-amber-100'>
-                   <Bin/>  
-                </div>             
-            </div>          
+                  <Bin />
+                </div>
+              </div>
+            )}        
         </div>
         <div className='mt-3 p-2 pt-[0.5px]'>
 

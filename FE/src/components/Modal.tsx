@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import { toast } from "react-toastify"
 
 interface ModalProps{
   onClose:()=>void,
@@ -26,11 +27,13 @@ function Modal({onClose, onSuccess}:ModalProps) {
         }
       }
     )
+    toast.success('Bookmark Added')
     onSuccess();
     onClose();   
 
     } catch (err) {
       console.error("Submission failed", err)      
+      toast.error('Failed to add bookmark. Please try again.');
     }
     
   }

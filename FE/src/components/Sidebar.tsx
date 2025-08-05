@@ -11,6 +11,7 @@ import Link from '../icons/Link'
 import Button from './Button'
 import LogoutIcon from '../icons/LogoutIcon'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 interface contents{
     _id:string,
@@ -28,6 +29,7 @@ interface sideBarProps{
 function Sidebar({contentData,setBookmarks  }:sideBarProps) {
   
   const [selected, setSelected]= useState("All Notes");
+    const [showLogout, setShowLogout] = useState(false);
   const navigate= useNavigate();
 
  const menuItems=[
@@ -44,7 +46,16 @@ function Sidebar({contentData,setBookmarks  }:sideBarProps) {
  useEffect(()=>{
    setBookmarks(filteredData)
  },[selected])
+ 
+  useEffect(() => {
+    setShowLogout(!!localStorage.getItem('authToken'));
+  }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    toast.success('Logged out successfully');
+    navigate('/');
+  };
   return (
     <div className='fixed top-0 left-0 w-[255px] h-screen border-r border-gray-200 bg-white z-50' >
         <div className='flex justify-center items-center gap-x-3 p-5 pb-5 pl-2 border-gray-200'>
@@ -63,9 +74,16 @@ function Sidebar({contentData,setBookmarks  }:sideBarProps) {
            ))}
           
         </div>
-       <div className='mt-64 pl-18 pt-6 border-t border-gray-200'>
-        <Button onClick={()=>{localStorage.removeItem('authToken'); navigate('/')}} startIcon={<LogoutIcon/>} variant="secondary" text='LogOut'/>
-       </div>
+      {showLogout && (
+        <div className='mt-64 pl-18 pt-6 border-t border-gray-200'>
+          <Button
+            onClick={handleLogout}
+            startIcon={<LogoutIcon />}
+            variant="secondary"
+            text='LogOut'
+          />
+        </div>
+      )}
     </div>
   )
 }

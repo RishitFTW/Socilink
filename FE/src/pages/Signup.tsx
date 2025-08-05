@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Signup() {
 
@@ -24,11 +25,12 @@ function Signup() {
             );
             const responseData = response.data;
             localStorage.setItem('authToken', responseData);
-
+            
+            toast.success('signed in successfully')
             navigate('/');
 
         } catch (error) {
-           alert('Failed to sign up. Please try again later.'); 
+           toast.error('Failed to sign up. Please try again.');
         }
     }
 
