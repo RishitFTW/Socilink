@@ -28,6 +28,7 @@ function Login() {
 
    const handleSubmit=async(e:React.FormEvent)=>{
     e.preventDefault();
+    console.log(API_BASE_URL)
     try {
       setAuth(true);
         const response = await axios.post(`${API_BASE_URL}api/v1/auth/signin`,

@@ -1,5 +1,4 @@
-import React, { type ReactElement } from 'react'
-import ShareIcon from '../icons/ShareIcon'
+import { type ReactElement } from 'react'
 
 interface SidebarItemProps {
   title: string;
