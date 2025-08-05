@@ -94,7 +94,7 @@ function Dashboard() {
                 <div className=' w-[34%] flex justify-center items-center'>
                     <div className='flex pl-8'>
                         <div>
-                            <Button onClick={handleShare} variant='primary'  startIcon={<ShareIcon/>} text="Share Brain"/>
+                            <Button onClick={handleShare} variant='primary'  startIcon={<ShareIcon/>} text="Invite"/>
                         </div>
                         <div className='pl-3'>
                             <Button onClick={() => setOpen(true)}  variant='secondary'  startIcon={<AddIcon/>} text="Add Content"/>

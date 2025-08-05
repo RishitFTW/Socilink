@@ -56,6 +56,10 @@ const removeContent=async()=>{
    }
 }
 
+const copyLink=()=>{
+   navigator.clipboard.writeText(link);
+   toast.success('link copied')
+}
 
   return (
     <div className="w-[290px] h-[320px] bg-white rounded-xl shadow-md hover:border-gray-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden
@@ -71,7 +75,7 @@ const removeContent=async()=>{
             </div>
             {!shared && (
               <div className='flex pl-2 gap-x-3'>
-                <div className='cursor-pointer'>
+                <div onClick={copyLink} className='cursor-pointer'>
                   <ShareIcon />
                 </div>
                 <div onClick={removeContent} className='cursor-pointer hover:bg-amber-100'>
