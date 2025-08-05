@@ -19,7 +19,7 @@ function Login() {
     setAuth(true);
     const token=localStorage.getItem('authToken');
     if(token){
-      setAuth(false);
+      
        navigate('/dashboard')
        return;
     }

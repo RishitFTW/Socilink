@@ -25,12 +25,11 @@ function Dashboard() {
   const [allBookmarks, setAllBookmarks]= useState<contents[]>([]);
   const [bookmarks, setBookmarks]= useState<contents[]>([]);
   const [refreshTrigger, setRefreshTrigger]= useState(0);
-  const [isfetchingData, setFetch]= useState(false);
+  const [isFetchingData, setIsFetchingData] = useState(false)
 
   const navigate= useNavigate();
 
   useEffect(()=>{
-    setFetch(true);
     const token=localStorage.getItem('authToken');
     if(!token){
         navigate('/')
@@ -38,19 +37,25 @@ function Dashboard() {
     }
     
     const fetchData=async()=>{
-        const BookmarksData= await axios.get(`${API_BASE_URL}api/v1/check/content`,
+        setIsFetchingData(true);
+        try {
+         const BookmarksData= await axios.get(`${API_BASE_URL}api/v1/check/content`,
             {
                 headers:{
                     Authorization:`Bearer ${token}`
                 }
             }
-        )
+        )   
         setBookmarks(BookmarksData.data);
-        setAllBookmarks(BookmarksData.data)
+        setAllBookmarks(BookmarksData.data) 
+        } catch (err) {
+            console.error('Failed fetching bookmarks:', err)
+        } finally{
+           setIsFetchingData(false);
+        }
        
     } 
     fetchData();
-    setFetch(false);
   },[refreshTrigger])
 
   const handleShare=async()=>{
@@ -65,14 +70,15 @@ function Dashboard() {
             }
         )
         const hash= await res.data.hash
-        await navigator.clipboard.writeText(hash)
+        const finalURL= `https://socilink-1.onrender.com/shared/${hash}`
+        await navigator.clipboard.writeText(finalURL)
         toast.success("Link copied");
     } catch (err) {
         console.error("Submission failed", err)   
         toast.error('Failed to share bookmarks. Please try again.');
     }
   }
-  if(isfetchingData){
+  if(isFetchingData){
     return <DashboardSkeleton/>
   }
   return (
