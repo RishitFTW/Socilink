@@ -2,7 +2,8 @@
 
 A content curation platform that helps users organize their scattered social media bookmarks into one central hub.
 
-
+---
+<img width="1917" height="965" alt="Image" src="https://github.com/user-attachments/assets/8361d44f-080f-4e99-8a89-d4e4ffa45190" />
 ---
 
 ## 📑 Table of Contents
