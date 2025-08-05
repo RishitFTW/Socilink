@@ -14,7 +14,7 @@ const variantClasses={
 
 function Button({variant,text,startIcon,onClick}:ButtonProps) {
   return (
-    <button onClick={onClick} className={variantClasses[variant]+` flex items-center gap-x-2 text-sm`}>
+    <button onClick={onClick} className={variantClasses[variant]+` flex items-center gap-x-1 text-sm`}>
         <div>
             {startIcon}
         </div>

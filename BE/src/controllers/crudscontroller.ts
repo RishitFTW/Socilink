@@ -9,15 +9,13 @@ export async function createContent(req:Request,res:Response){
   try {
     console.log("s1")
     const { type, link, title } = req.body;
-    console.log("s2")
-    console.log(`type: ${type}, link: ${link}, title: ${title}`)
+
     if (!type || !link || !title) {
       return res.status(400).json({ message: 'Invalid content data' });
     }
-    console.log("s3")
+
     //@ts-ignore
     const content = new Content({ type, link, userId: req.userId, title });
-    console.log("s4")
 
     await content.save();
 
@@ -37,7 +35,9 @@ export async function fetchContent(req:Request,res:Response){
             return res.status(400).json({ message: "User ID is required" });
         }
 
-        const contentList = await Content.find({ userId: userId });
+        const contentList = await Content.find({ userId: userId },
+          '_id title type link'
+        );
 
         return res.status(200).json(contentList);
 
@@ -91,7 +91,7 @@ export async function createLink(req:Request, res:Response){
             })
 
             res.json({
-                hash
+                hash:hash
             })
     } else {
         await link.deleteOne({

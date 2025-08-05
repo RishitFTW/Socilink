@@ -9,10 +9,18 @@ import Modal from '../components/Modal'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+interface contents{
+    _id:string,
+    link:string,
+    type:string,
+    title:string
+}
+
 function Dashboard() {
 
   const [open, setOpen]= useState(false);
-  const [bookmarks, setBookmarks]= useState([]);
+  const [allBookmarks, setAllBookmarks]= useState<contents[]>([]);
+  const [bookmarks, setBookmarks]= useState<contents[]>([]);
   const [refreshTrigger, setRefreshTrigger]= useState(0);
 
   const navigate= useNavigate();
@@ -33,16 +41,35 @@ function Dashboard() {
             }
         )
         setBookmarks(BookmarksData.data);
+        setAllBookmarks(BookmarksData.data)
 
     } 
     fetchData();
   },[refreshTrigger])
 
+  const handleShare=async()=>{
+    try {
+        const token= localStorage.getItem('authToken')
+        const res= await axios.post('http://localhost:3000/api/v1/check/brain/share',
+            {share:true},
+            {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        const hash= await res.data.hash
+        await navigator.clipboard.writeText(hash)
+        alert("Link copied to clipboard!");
+    } catch (err) {
+        console.error("Submission failed", err)   
+    }
+  }
 
   return (
     <div>
     <div className='relative flex'>
-        <Sidebar/>
+        <Sidebar contentData={allBookmarks} setBookmarks={setBookmarks} />
         <div className='pl-[255px]'>
             <div className='h-[80px] w-[1280px] flex border-b border-gray-200'>
                 <div className='w-[66%] '>
@@ -52,7 +79,7 @@ function Dashboard() {
                 <div className=' w-[34%] flex justify-center items-center'>
                     <div className='flex pl-8'>
                         <div>
-                            <Button variant='primary'  startIcon={<ShareIcon/>} text="Share Brain"/>
+                            <Button onClick={handleShare} variant='primary'  startIcon={<ShareIcon/>} text="Share Brain"/>
                         </div>
                         <div className='pl-3'>
                             <Button onClick={() => setOpen(true)}  variant='secondary'  startIcon={<AddIcon/>} text="Add Content"/>
