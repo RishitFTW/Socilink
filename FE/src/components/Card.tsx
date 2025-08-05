@@ -21,7 +21,7 @@ import { API_BASE_URL } from '../config';
 interface CardProps{
     title:string,
     type:"youtube"| "x" | "linkedin" | "instagram" | "facebook" | "pinterest",
-    link:string
+    link?:string
     onSuccess:()=>void
     _id:string,
     shared:Boolean
@@ -36,7 +36,7 @@ const typeVariant={
   "pinterest":<Pinterest/>
 }
 
-function Card({title,type,link,onSuccess,_id,shared}:CardProps) {
+function Card({title,type,onSuccess,_id,shared}:CardProps) {
 
 const removeContent=async()=>{
    try {
