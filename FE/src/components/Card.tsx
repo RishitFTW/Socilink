@@ -41,7 +41,7 @@ function Card({title,type,link,onSuccess,_id,shared}:CardProps) {
 const removeContent=async()=>{
    try {
     const token= localStorage.getItem('authToken')
-      const res= await axios.delete(`${API_BASE_URL}api/v1/check/content/${_id}`,
+    await axios.delete(`${API_BASE_URL}api/v1/check/content/${_id}`,
         {
           headers:{
             Authorization:`Bearer ${token}`

@@ -20,7 +20,7 @@ function Modal({onClose, onSuccess}:ModalProps) {
     e.preventDefault()
     try {
        const token= localStorage.getItem('authToken')
-       const res= await axios.post(`${API_BASE_URL}api/v1/check/content`,
+       await axios.post(`${API_BASE_URL}api/v1/check/content`,
       formData,
       {
         headers:{
