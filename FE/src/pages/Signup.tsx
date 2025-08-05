@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../config';
 
 function Signup() {
 
@@ -15,7 +16,7 @@ function Signup() {
         e.preventDefault();
         try {
             const response = await axios.post(
-            'http://localhost:3000/api/v1/auth/signup',
+            `${API_BASE_URL}api/v1/auth/signup`,
             formData,
             {
                 headers: {

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import DashboardSkeleton from '../components/skeletons/DashboardSkeleton'
 import { useParams } from 'react-router-dom'
+import { API_BASE_URL } from '../config'
 
 interface Content{
     _id:string,
@@ -25,7 +26,7 @@ function SharedContent() {
     const fetchData = async () => {
       try {
         setIsFetchingData(true);
-        const response = await axios.get(`http://localhost:3000/api/v1/check/brain/share/${hash}`);
+        const response = await axios.get(`${API_BASE_URL}api/v1/check/brain/share/${hash}`);
         const data = Array.isArray(response.data.content) ? response.data.content : [];
         setBookmarks(data);
         setAllBookmarks(data);

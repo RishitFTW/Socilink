@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import DashboardSkeleton from '../components/skeletons/DashboardSkeleton'
+import { API_BASE_URL } from '../config'
 
 interface contents{
     _id:string,
@@ -37,7 +38,7 @@ function Dashboard() {
     }
     
     const fetchData=async()=>{
-        const BookmarksData= await axios.get('http://localhost:3000/api/v1/check/content',
+        const BookmarksData= await axios.get(`${API_BASE_URL}api/v1/check/content`,
             {
                 headers:{
                     Authorization:`Bearer ${token}`
@@ -55,7 +56,7 @@ function Dashboard() {
   const handleShare=async()=>{
     try {
         const token= localStorage.getItem('authToken')
-        const res= await axios.post('http://localhost:3000/api/v1/check/brain/share',
+        const res= await axios.post(`${API_BASE_URL}api/v1/check/brain/share`,
             {share:true},
             {
                 headers:{
@@ -96,12 +97,6 @@ function Dashboard() {
                 </div>
             </div>
             <div className='min-h-[697px] w-[1280px] bg-slate-100 flex flex-wrap gap-x-6 gap-y-6 p-6'>
-                    {/* <Card title="Twitter Content" type="x"/>
-                    <Card title="youtube Content" type="youtube"/>
-                    <Card title="Instagram Content" type="instagram"/>
-                    <Card title="facebook Content" type="fb"/>
-                    <Card title="Pinterest Content" type="pinterest"/>
-                    <Card title="Linkedin Content" type="linkedin"/>                     */}
                     {bookmarks.map((item:any)=>(
                         <Card key={item._id} title={item.title} type={item.type} link={item.link} _id={item._id} shared={false} onSuccess={()=>{setRefreshTrigger(prev=>prev+1)}}/>
                     ))}

@@ -15,6 +15,8 @@ import Fb from '../icons/Fb';
 import Pinterest from '../icons/Pinterest';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../config';
+
 
 interface CardProps{
     title:string,
@@ -39,7 +41,7 @@ function Card({title,type,link,onSuccess,_id,shared}:CardProps) {
 const removeContent=async()=>{
    try {
     const token= localStorage.getItem('authToken')
-      const res= await axios.delete(`http://localhost:3000/api/v1/check/content/${_id}`,
+      const res= await axios.delete(`${API_BASE_URL}api/v1/check/content/${_id}`,
         {
           headers:{
             Authorization:`Bearer ${token}`

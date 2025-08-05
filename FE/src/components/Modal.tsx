@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { API_BASE_URL } from "../config"
 
 interface ModalProps{
   onClose:()=>void,
@@ -19,7 +20,7 @@ function Modal({onClose, onSuccess}:ModalProps) {
     e.preventDefault()
     try {
        const token= localStorage.getItem('authToken')
-       const res= await axios.post("http://localhost:3000/api/v1/check/content",
+       const res= await axios.post(`${API_BASE_URL}api/v1/check/content`,
       formData,
       {
         headers:{

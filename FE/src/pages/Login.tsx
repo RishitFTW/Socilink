@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DashboardSkeleton from "../components/skeletons/DashboardSkeleton";
+import { API_BASE_URL } from "../config";
 
 function Login() {
    
@@ -29,7 +30,7 @@ function Login() {
     e.preventDefault();
     try {
       setAuth(true);
-        const response = await axios.post('http://localhost:3000/api/v1/auth/signin',
+        const response = await axios.post(`${API_BASE_URL}api/v1/auth/signin`,
             formData,
             {
                 headers:{
@@ -47,6 +48,7 @@ function Login() {
     } catch (error: any) {
       console.error("Login error:", error);
       toast.error('Error logging in. Please try again.');
+      navigate('/');
 }
    }
 
