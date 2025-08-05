@@ -4,7 +4,7 @@ function DashboardSkeleton() {
     <div className="bg-gray-100 min-h-screen">
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-[250px] h-screen bg-white p-4 border-r">
+        <div className="w-[250px] h-screen bg-white p-4 border-r border-gray-200">
           <div className="h-10 w-32 bg-gray-200 animate-pulse rounded mb-6"></div>
           <div className="space-y-4">
             <div className="h-4 w-3/4 bg-gray-200 animate-pulse rounded"></div>
