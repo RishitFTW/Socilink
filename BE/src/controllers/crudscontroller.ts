@@ -7,7 +7,7 @@ import user from "../models/user";
 
 export async function createContent(req:Request,res:Response){
   try {
-    console.log("s1")
+
     const { type, link, title } = req.body;
 
     if (!type || !link || !title) {
